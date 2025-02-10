@@ -173,7 +173,6 @@ export default {
                 });
 
             // swap and execute this on chain
-            let txHash = "";
             account
                 .swap(
                     swapContent.fromCoinAddress,
@@ -184,15 +183,13 @@ export default {
                 )
                 .then((result) => {
                     console.log("swap result:", result);
-                    txHash = result.digest;
                 });
 
             if (callback) {
                 callback({
-                    text: `Successfully swap ${swapContent.amount} ${swapContent.fromCoinAddress} to ${swapContent.toCoinAddress}, Transaction: ${txHash}`,
+                    text: `Successfully swap ${swapContent.amount} ${swapContent.fromCoinAddress} to ${swapContent.toCoinAddress}`,
                     content: {
                         success: true,
-                        hash: txHash,
                     },
                 });
             }
