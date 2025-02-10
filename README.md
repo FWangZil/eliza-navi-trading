@@ -1,47 +1,25 @@
-# Eliza 🤖
+# Eliza-NAVI-trading 🤖
 
-<div align="center">
-  <img src="./docs/static/img/eliza_banner.jpg" alt="Eliza Banner" width="100%" />
-</div>
+This project is forked from [Eliza](https://github.com/elizaOS/eliza) v0.1.8, with future contributions planned to be made to Elizaos through [FWangZil/Eliza](https://github.com/FWangZil/eliza).
 
-<div align="center">
+Current Status:
 
-📖 [Documentation](https://elizaos.github.io/eliza/) | 🎯 [Examples](https://github.com/thejoven/awesome-eliza)
+1. This project integrates the NAVI SDK into elizaOS's SUI Plugin, equipping AI Agents with the rich functionality supported by NAVI. In the current version, it's already possible to swap any tokens. Future updates will support other NAVI Protocol features, such as flash loans.
 
-</div>
+2. Support for Atoma Network's AI Provider has been added to elizaOS. Developers can now utilize Atoma's excellent AI services in appropriate scenarios to enhance the diverse Agent capabilities of elizaOS.
 
-## 🌍 README Translations
+Future Plans:
 
-[中文说明](./README_CN.md) | [日本語の説明](./README_JA.md) | [한국어 설명](./README_KOR.md) | [Français](./README_FR.md) | [Português](./README_PTBR.md) | [Türkçe](./README_TR.md) | [Русский](./README_RU.md) | [Español](./README_ES.md) | [Italiano](./README_IT.md) | [ไทย](./README_TH.md) | [Deutsch](./README_DE.md) | [Tiếng Việt](./README_VI.md) | [עִברִית](https://github.com/elizaos/Elisa/blob/main/README_HE.md) | [Tagalog](./README_TG.md) | [Polski](./README_PL.md) | [Arabic](./README_AR.md) | [Hungarian](./README_HU.md) | [Srpski](./README_RS.md) | [Română](./README_RO.md) | [Nederlands](./README_NL.md)
+1. Enhance NAVI Protocol transaction support, enabling AI Agents to perform complex transactions such as flash loans.
+2. Improve Provider and data support, allowing AI Agents to autonomously select suitable trading pairs for:
+    - Choosing trading pairs
+    - Selecting transaction types
+    - Determining transaction amounts
+    - Automating arbitrage
+3. Optimize edge case handling and enhance transaction security controls
+4. Improve overall code quality
 
-## 🚩 Overview
-
-<div align="center">
-  <img src="./docs/static/img/eliza_diagram.png" alt="Eliza Diagram" width="100%" />
-</div>
-
-## ✨ Features
-
-- 🛠️ Full-featured Discord, Twitter and Telegram connectors
-- 🔗 Support for every model (Llama, Grok, OpenAI, Anthropic, etc.)
-- 👥 Multi-agent and room support
-- 📚 Easily ingest and interact with your documents
-- 💾 Retrievable memory and document store
-- 🚀 Highly extensible - create your own actions and clients
-- ☁️ Supports many models (local Llama, OpenAI, Anthropic, Groq, etc.)
-- 📦 Just works!
-
-## Video Tutorials
-
-[AI Agent Dev School](https://www.youtube.com/watch?v=ArptLpQiKfI&list=PLx5pnFXdPTRzWla0RaOxALTSTnVq53fKL)
-
-## 🎯 Use Cases
-
-- 🤖 Chatbots
-- 🕵️ Autonomous Agents
-- 📈 Business Process Handling
-- 🎮 Video Game NPCs
-- 🧠 Trading
+Display Video: [https://youtu.be/xxxx](https://youtu.be/xxxx)
 
 ## 🚀 Quick Start
 
