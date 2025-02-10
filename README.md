@@ -19,7 +19,10 @@ Future Plans:
 3. Optimize edge case handling and enhance transaction security controls
 4. Improve overall code quality
 
-Display Video: [https://youtu.be/xxxx](https://youtu.be/xxxx)
+Display Video: [Youtube](https://youtu.be/HdLETOCFV7c)
+Transaction in the video: <https://suivision.xyz/txblock/HVqnDDrK9Vu2x1i1sjAcTrAfydSv3wjBh4NXuMwwYL25>
+
+![demo](image-1.png)
 
 ## 🚀 Quick Start
 
