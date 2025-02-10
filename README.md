@@ -19,7 +19,9 @@ Future Plans:
 3. Optimize edge case handling and enhance transaction security controls
 4. Improve overall code quality
 
-Display Video: [Youtube](https://youtu.be/HdLETOCFV7c)
+Display Video:
+    Chinese voice, English subtitles: [Youtube](https://youtu.be/HdLETOCFV7c)
+    English voice, English subtitles: [Youtube](https://youtu.be/ganjhxq4u9k)
 Transaction in the video: <https://suivision.xyz/txblock/HVqnDDrK9Vu2x1i1sjAcTrAfydSv3wjBh4NXuMwwYL25>
 
 ![demo](image-1.png)
