@@ -454,6 +454,11 @@ export function getTokenForProvider(
                 character.settings?.secrets?.DEEPSEEK_API_KEY ||
                 settings.DEEPSEEK_API_KEY
             );
+        case ModelProviderName.ATOMA:
+            return (
+                character.settings?.secrets?.ATOMA_API_KEY ||
+                settings.ATOMA_API_KEY
+            );
         default:
             const errorMessage = `Failed to get token - unsupported model provider: ${provider}`;
             elizaLogger.error(errorMessage);

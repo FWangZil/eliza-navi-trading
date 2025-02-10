@@ -292,9 +292,13 @@ export async function generateText({
         hasRuntime: !!runtime,
         runtimeSettings: {
             CLOUDFLARE_GW_ENABLED: runtime.getSetting("CLOUDFLARE_GW_ENABLED"),
-            CLOUDFLARE_AI_ACCOUNT_ID: runtime.getSetting("CLOUDFLARE_AI_ACCOUNT_ID"),
-            CLOUDFLARE_AI_GATEWAY_ID: runtime.getSetting("CLOUDFLARE_AI_GATEWAY_ID")
-        }
+            CLOUDFLARE_AI_ACCOUNT_ID: runtime.getSetting(
+                "CLOUDFLARE_AI_ACCOUNT_ID"
+            ),
+            CLOUDFLARE_AI_GATEWAY_ID: runtime.getSetting(
+                "CLOUDFLARE_AI_GATEWAY_ID"
+            ),
+        },
     });
 
     const endpoint =
@@ -414,8 +418,11 @@ export async function generateText({
             case ModelProviderName.TOGETHER:
             case ModelProviderName.NINETEEN_AI:
             case ModelProviderName.AKASH_CHAT_API: {
-                elizaLogger.debug("Initializing OpenAI model with Cloudflare check");
-                const baseURL = getCloudflareGatewayBaseURL(runtime, 'openai') || endpoint;
+                elizaLogger.debug(
+                    "Initializing OpenAI model with Cloudflare check"
+                );
+                const baseURL =
+                    getCloudflareGatewayBaseURL(runtime, "openai") || endpoint;
 
                 //elizaLogger.debug("OpenAI baseURL result:", { baseURL });
                 const openai = createOpenAI({
@@ -488,7 +495,10 @@ export async function generateText({
                 const { text: openaiResponse } = await aiGenerateText({
                     model: openai.languageModel(model),
                     prompt: context,
-                    system: runtime.character.system ?? settings.SYSTEM_PROMPT ?? undefined,
+                    system:
+                        runtime.character.system ??
+                        settings.SYSTEM_PROMPT ??
+                        undefined,
                     temperature: temperature,
                     maxTokens: max_response_length,
                     frequencyPenalty: frequency_penalty,
@@ -550,11 +560,19 @@ export async function generateText({
             }
 
             case ModelProviderName.ANTHROPIC: {
-                elizaLogger.debug("Initializing Anthropic model with Cloudflare check");
-                const baseURL = getCloudflareGatewayBaseURL(runtime, 'anthropic') || "https://api.anthropic.com/v1";
+                elizaLogger.debug(
+                    "Initializing Anthropic model with Cloudflare check"
+                );
+                const baseURL =
+                    getCloudflareGatewayBaseURL(runtime, "anthropic") ||
+                    "https://api.anthropic.com/v1";
                 elizaLogger.debug("Anthropic baseURL result:", { baseURL });
 
-                const anthropic = createAnthropic({ apiKey, baseURL, fetch: runtime.fetch });
+                const anthropic = createAnthropic({
+                    apiKey,
+                    baseURL,
+                    fetch: runtime.fetch,
+                });
                 const { text: anthropicResponse } = await aiGenerateText({
                     model: anthropic.languageModel(model),
                     prompt: context,
@@ -642,10 +660,16 @@ export async function generateText({
             }
 
             case ModelProviderName.GROQ: {
-                elizaLogger.debug("Initializing Groq model with Cloudflare check");
-                const baseURL = getCloudflareGatewayBaseURL(runtime, 'groq');
+                elizaLogger.debug(
+                    "Initializing Groq model with Cloudflare check"
+                );
+                const baseURL = getCloudflareGatewayBaseURL(runtime, "groq");
                 elizaLogger.debug("Groq baseURL result:", { baseURL });
-                const groq = createGroq({ apiKey, fetch: runtime.fetch, baseURL });
+                const groq = createGroq({
+                    apiKey,
+                    fetch: runtime.fetch,
+                    baseURL,
+                });
 
                 const { text: groqResponse } = await aiGenerateText({
                     model: groq.languageModel(model),
@@ -993,6 +1017,37 @@ export async function generateText({
 
                 response = deepseekResponse;
                 elizaLogger.debug("Received response from Deepseek model.");
+                break;
+            }
+
+            case ModelProviderName.ATOMA: {
+                elizaLogger.debug("Initializing Atoma model.");
+                const serverUrl = getEndpoint(provider);
+                const atoma = createOpenAI({
+                    apiKey,
+                    baseURL: serverUrl,
+                    fetch: runtime.fetch,
+                });
+
+                const { text: atomaResponse } = await aiGenerateText({
+                    model: atoma.languageModel(model),
+                    prompt: context,
+                    temperature: temperature,
+                    system:
+                        runtime.character.system ??
+                        settings.SYSTEM_PROMPT ??
+                        undefined,
+                    tools: tools,
+                    onStepFinish: onStepFinish,
+                    maxSteps: maxSteps,
+                    maxTokens: max_response_length,
+                    frequencyPenalty: frequency_penalty,
+                    presencePenalty: presence_penalty,
+                    experimental_telemetry: experimental_telemetry,
+                });
+
+                response = atomaResponse;
+                elizaLogger.debug("Received response from Atoma model.");
                 break;
             }
 
@@ -1925,6 +1980,8 @@ export async function handleProvider(
             return await handleOllama(options);
         case ModelProviderName.DEEPSEEK:
             return await handleDeepSeek(options);
+        case ModelProviderName.ATOMA:
+            return await handleAtoma(options);
         default: {
             const errorMessage = `Unsupported provider: ${provider}`;
             elizaLogger.error(errorMessage);
@@ -1949,7 +2006,9 @@ async function handleOpenAI({
     provider: _provider,
     runtime,
 }: ProviderOptions): Promise<GenerateObjectResult<unknown>> {
-    const baseURL = getCloudflareGatewayBaseURL(runtime, 'openai') || models.openai.endpoint;
+    const baseURL =
+        getCloudflareGatewayBaseURL(runtime, "openai") ||
+        models.openai.endpoint;
     const openai = createOpenAI({ apiKey, baseURL });
     return await aiGenerateObject({
         model: openai.languageModel(model),
@@ -1978,7 +2037,7 @@ async function handleAnthropic({
     runtime,
 }: ProviderOptions): Promise<GenerateObjectResult<unknown>> {
     elizaLogger.debug("Handling Anthropic request with Cloudflare check");
-    const baseURL = getCloudflareGatewayBaseURL(runtime, 'anthropic');
+    const baseURL = getCloudflareGatewayBaseURL(runtime, "anthropic");
     elizaLogger.debug("Anthropic handleAnthropic baseURL:", { baseURL });
 
     const anthropic = createAnthropic({ apiKey, baseURL });
@@ -2035,7 +2094,7 @@ async function handleGroq({
     runtime,
 }: ProviderOptions): Promise<GenerateObjectResult<unknown>> {
     elizaLogger.debug("Handling Groq request with Cloudflare check");
-    const baseURL = getCloudflareGatewayBaseURL(runtime, 'groq');
+    const baseURL = getCloudflareGatewayBaseURL(runtime, "groq");
     elizaLogger.debug("Groq handleGroq baseURL:", { baseURL });
 
     const groq = createGroq({ apiKey, baseURL });
@@ -2147,6 +2206,35 @@ async function handleOpenRouter({
     });
     return await aiGenerateObject({
         model: openRouter.languageModel(model),
+        schema,
+        schemaName,
+        schemaDescription,
+        mode,
+        ...modelOptions,
+    });
+}
+
+/**
+ * Handles object generation for Atoma models.
+ *
+ * @param {ProviderOptions} options - Options specific to Atoma.
+ * @returns {Promise<GenerateObjectResult<unknown>>} - A promise that resolves to generated objects.
+ */
+async function handleAtoma({
+    model,
+    apiKey,
+    schema,
+    schemaName,
+    schemaDescription,
+    mode = "json",
+    modelOptions,
+}: ProviderOptions): Promise<GenerateObjectResult<unknown>> {
+    const atoma = createOpenAI({
+        apiKey,
+        baseURL: models.atoma.endpoint,
+    });
+    return await aiGenerateObject({
+        model: atoma.languageModel(model),
         schema,
         schemaName,
         schemaDescription,

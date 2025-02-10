@@ -1,15 +1,15 @@
 import { Plugin } from "@elizaos/core";
-import transferToken from "./actions/transfer.ts";
-import { WalletProvider, walletProvider } from "./providers/wallet.ts";
+import naviSwap from "./actions/navi_swap.ts";
+import { naviProtocolProvider } from "./providers/nvai.ts";
 
-export { WalletProvider, transferToken as TransferSuiToken };
+export { naviSwap as NaviSwap };
 
 export const suiPlugin: Plugin = {
     name: "sui",
     description: "Sui Plugin for Eliza",
-    actions: [transferToken],
+    actions: [naviSwap],
     evaluators: [],
-    providers: [walletProvider],
+    providers: [naviProtocolProvider],
 };
 
 export default suiPlugin;

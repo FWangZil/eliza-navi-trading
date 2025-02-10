@@ -998,6 +998,52 @@ export const models: Models = {
             },
         },
     },
+    [ModelProviderName.ATOMA]: {
+        endpoint: "https://api.atoma.network/v1",
+        // Available models: https://cloud.atoma.network/
+        // To test other models, change the models below
+        model: {
+            [ModelClass.SMALL]: {
+                name:
+                    settings.SMALL_ATOMA_MODEL ||
+                    settings.ATOMA_MODEL ||
+                    "meta-llama/Llama-3.3-70B-Instruct",
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 4000,
+                frequency_penalty: 0.4,
+                presence_penalty: 0.4,
+                temperature: 0.7,
+            },
+            [ModelClass.MEDIUM]: {
+                name:
+                    settings.MEDIUM_ATOMA_MODEL ||
+                    settings.ATOMA_MODEL ||
+                    "meta-llama/Llama-3.3-70B-Instruct",
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 4000,
+                frequency_penalty: 0.4,
+                presence_penalty: 0.4,
+                temperature: 0.7,
+            },
+            [ModelClass.LARGE]: {
+                name:
+                    settings.LARGE_ATOMA_MODEL ||
+                    settings.ATOMA_MODEL ||
+                    "deepseek-ai/DeepSeek-R1",
+                stop: [],
+                maxInputTokens: 128000,
+                maxOutputTokens: 8192,
+                frequency_penalty: 0.4,
+                presence_penalty: 0.4,
+                temperature: 0.7,
+            },
+            [ModelClass.EMBEDDING]: {
+                name: "intfloat/multilingual-e5-large-instruct",
+            },
+        },
+    },
 };
 
 export function getModelSettings(

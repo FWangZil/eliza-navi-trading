@@ -229,6 +229,7 @@ export type Models = {
     [ModelProviderName.LIVEPEER]: Model;
     [ModelProviderName.DEEPSEEK]: Model;
     [ModelProviderName.INFERA]: Model;
+    [ModelProviderName.ATOMA]: Model;
 };
 
 /**
@@ -261,8 +262,9 @@ export enum ModelProviderName {
     NINETEEN_AI = "nineteen_ai",
     AKASH_CHAT_API = "akash_chat_api",
     LIVEPEER = "livepeer",
-    DEEPSEEK="deepseek",
-    INFERA="infera"
+    DEEPSEEK = "deepseek",
+    INFERA = "infera",
+    ATOMA = "atoma",
 }
 
 /**
